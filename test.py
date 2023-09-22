@@ -25,48 +25,39 @@ def browse() :
 	global filename
 	filename = askopenfilename()
 	print (filename)
-
-def Create_Input_Window():
+	
+	 
+def Create_Input_Window():    
 	input_window = tk.Toplevel(root)
-	input_window.geometry("400x600")
+	input_window.geometry("400x500")
 	input_window.resizable(0, 0)
-
-	def show_predicted_label(label):
-		if label == 1:
-			account_type_label=tk.Label(input_window, text="Account Type : Fake").grid(row=24)
-		else :
-			account_type_label=tk.Label(input_window, text="Account Type : Not Fake").grid(row=24)
-
+			
 	def Linear_Svc_Manual_Input ():
 		if  filename :
 			print("here")
 			if e1 :
-				inputframe =pd.DataFrame(
-				OrderedDict(
-				{
-				'profilepic':[e1.get()],
-				'nums/length username':[e2.get()],
-				'fullname words':[e3.get()],
-				'nums/length fullname':[e4.get()],
-				'name=username':[e5.get()],
-				'description length':[e6.get()],
-				'external URL':[e7.get()],
-				'private':[e8.get()],
-				'#posts':[e9.get()],
-				'#followers':[e10.get()],
-				'#follows':[e11.get()],
-				'fake':[e12.get()]
-				}))
-				inputframe = inputframe[['profilepic','nums/length username','fullname words','nums/length fullname','name=username','description length','external URL','private','#posts','#followers','#follows','fake']]
-				print(inputframe.loc[0])
-				Naive_Bayes_Manual_Input(inputframe)
+			 inputframe =pd.DataFrame(
+			 OrderedDict(
+			{
+			'UserID':[e1.get()],
+			'No Of Abuse Report':[e2.get()],
+			'Rejected Friend Requests':[e3.get()],
+			'No Of Freind Requests Thar Are Not Accepted':[e4.get()],
+			'No Of Friends':[e5.get()],
+			'No Of Followers':[e6.get()],
+			'No Of Likes To Unknown Account':[e7.get()],
+			'No Of Comments Per Day':[e8.get()],
+			}))
+			inputframe = inputframe[['UserID', 'No Of Abuse Report','No Of Freind Requests Thar Are Not Accepted','No Of Friends','No Of Followers','No Of Likes To Unknown Account','No Of Comments Per Day']]
+			print(inputframe.loc[0])
 			
-			df=pd.read_csv(filename_train)
-			train = df
+			df=pd.read_csv(filename)
+			msk = np.random.rand(len(df)) < 0.7
+			train = df[msk]
 			test = inputframe
-			features = train.values[:,0:10]
-			testing_data = test.values[:,0:10]
-			labels = train.values[:,11].astype("int")
+			testing_data=test.values[:, 0:7]
+			features = train.values[:, 0:7]
+			labels   = train.values[:, 8].astype('int')
 			model2 = LinearSVC()
 			model2.fit(features,labels)
 			predictions_model2 = model2.predict(testing_data)
@@ -81,32 +72,29 @@ def Create_Input_Window():
 			print("here")
 			
 			if e1 :
-				inputframe =pd.DataFrame(
-				OrderedDict(
-				{
-				'profilepic':[e1.get()],
-				'nums/length username':[e2.get()],
-				'fullname words':[e3.get()],
-				'nums/length fullname':[e4.get()],
-				'name=username':[e5.get()],
-				'description length':[e6.get()],
-				'external URL':[e7.get()],
-				'private':[e8.get()],
-				'#posts':[e9.get()],
-				'#followers':[e10.get()],
-				'#follows':[e11.get()],
-				'fake':[e12.get()]
-				}))
-				inputframe = inputframe[['profilepic','nums/length username','fullname words','nums/length fullname','name=username','description length','external URL','private','#posts','#followers','#follows','fake']]
-				print(inputframe.loc[0])
-				
-			df=pd.read_csv(filename_train) 
-			train = df
+			 inputframe =pd.DataFrame(
+			 OrderedDict(
+			{
+			'UserID':[e1.get()],
+			'No Of Abuse Report':[e2.get()],
+			'Rejected Friend Requests':[e3.get()],
+			'No Of Freind Requests Thar Are Not Accepted':[e4.get()],
+			'No Of Friends':[e5.get()],
+			'No Of Followers':[e6.get()],
+			'No Of Likes To Unknown Account':[e7.get()],
+			'No Of Comments Per Day':[e8.get()],
+			}))
+			inputframe = inputframe[['UserID', 'No Of Abuse Report','No Of Freind Requests Thar Are Not Accepted','No Of Friends','No Of Followers','No Of Likes To Unknown Account','No Of Comments Per Day']]
+			print(inputframe.loc[0])
+			
+			
+			df=pd.read_csv(filename) 
+			msk = np.random.rand(len(df)) < 0.7
+			train = df[msk]
 			test = inputframe
-			features = train.values[:,0:10]
-			testing_data = test.values[:,0:10]
-			labels = train.values[:,11].astype("int")
-
+			testing_data=test.values[:, 0:7]
+			features = train.values[:, 0:7]
+			labels   = train.values[:, 8].astype('int')
 			model1 = MultinomialNB()
 			model1.fit(features,labels)
 			predictions_model1 = model1.predict(testing_data)
@@ -120,32 +108,29 @@ def Create_Input_Window():
 			print("here")
 			
 			if e1 :
-				inputframe =pd.DataFrame(
-				OrderedDict(
-				{
-				'profilepic':[e1.get()],
-				'nums/length username':[e2.get()],
-				'fullname words':[e3.get()],
-				'nums/length fullname':[e4.get()],
-				'name=username':[e5.get()],
-				'description length':[e6.get()],
-				'external URL':[e7.get()],
-				'private':[e8.get()],
-				'#posts':[e9.get()],
-				'#followers':[e10.get()],
-				'#follows':[e11.get()],
-				'fake':[e12.get()]
-				}))
-				inputframe = inputframe[['profilepic','nums/length username','fullname words','nums/length fullname','name=username','description length','external URL','private','#posts','#followers','#follows','fake']]
-				print(inputframe.loc[0])
+			 inputframe =pd.DataFrame(
+			 OrderedDict(
+			{
+			'UserID':[e1.get()],
+			'No Of Abuse Report':[e2.get()],
+			'Rejected Friend Requests':[e3.get()],
+			'No Of Freind Requests Thar Are Not Accepted':[e4.get()],
+			'No Of Friends':[e5.get()],
+			'No Of Followers':[e6.get()],
+			'No Of Likes To Unknown Account':[e7.get()],
+			'No Of Comments Per Day':[e8.get()],
+			}))
+			inputframe = inputframe[['UserID', 'No Of Abuse Report','No Of Freind Requests Thar Are Not Accepted','No Of Friends','No Of Followers','No Of Likes To Unknown Account','No Of Comments Per Day']]
+			print(inputframe.loc[0])
 			
 			
-			df=pd.read_csv(filename_train) 
-			train = df
+			df=pd.read_csv(filename) 
+			msk = np.random.rand(len(df)) < 0.7
+			train = df[msk]
 			test = inputframe
-			features = train.values[:,0:10]
-			testing_data = test.values[:,0:10]
-			labels = train.values[:,11].astype("int")
+			testing_data=test.values[:, 0:7]
+			features = train.values[:, 0:7]
+			labels   = train.values[:, 8].astype('int')
 			model3 = KNeighborsClassifier(n_neighbors=3)
 			model3.fit(features,labels)
 			predictions_model3 = model3.predict(testing_data)
@@ -163,10 +148,7 @@ def Create_Input_Window():
 	tk.Label(input_window, text="Enter No Of Followers").grid(row=11)
 	tk.Label(input_window, text="Enter No Of Likes To Unknown Account").grid(row=13)
 	tk.Label(input_window, text="Enter No Of Comments Per Day").grid(row=15)
-	tk.Label(input_window, text="Enter No Of Comments Per Day9").grid(row=17)
-	tk.Label(input_window, text="Enter No Of Comments Per Day10").grid(row=19)
-	tk.Label(input_window, text="Enter No Of Comments Per Day11").grid(row=21)
-	tk.Label(input_window, text="Enter No Of Comments Per Day12").grid(row=23)
+	
 	
 	e1 = tk.Entry(input_window)
 	e2 = tk.Entry(input_window)
@@ -177,11 +159,7 @@ def Create_Input_Window():
 	e6 = tk.Entry(input_window)
 	e7 = tk.Entry(input_window)
 	e8 = tk.Entry(input_window)
-	e9 = tk.Entry(input_window)
-	e10 = tk.Entry(input_window)
-	e11 = tk.Entry(input_window)
-	e12 = tk.Entry(input_window)
-
+	
 	e1.grid(row=2, column=0)
 	e2.grid(row=4, column=0)
 	e3.grid(row=6, column=0)
@@ -190,12 +168,14 @@ def Create_Input_Window():
 	e6.grid(row=12, column=0)
 	e7.grid(row=14, column=0)
 	e8.grid(row=16, column=0)	
-	e9.grid(row=18, column=0)	
-	e10.grid(row=20, column=0)	
-	e11.grid(row=22, column=0)	
-	e12.grid(row=24, column=0)
 	
-
+	tk.Label(input_window, 
+		 text="Predict",
+		 fg = "dark violet",
+		 bg = "yellow2",
+		 width=35,
+		 height=1,
+		 font = "Helvetica 15 bold italic").grid(row=32)
 		   
 	Naive_Bayes_button = tk.Button(input_window, 
 					   text="Naive Bayes", 
@@ -241,8 +221,8 @@ def Naive_Bayes():
 		train = df1
 		test = df2
 		features = train.values[:,0:10]
-		testing_data = test.values[:,0:10]
 		labels = train.values[:,11].astype("int")
+		testing_data = test.values[:,0:10]
 		testing_data_labels = test.values[:,11]
 
 		model1 = MultinomialNB()
@@ -286,6 +266,7 @@ def Linear_Svc():
 		labels = train.values[:,11].astype("int")
 		testing_data = test.values[:,0:10]
 		testing_data_labels = test.values[:,11]
+		
 		model2 = LinearSVC()
 		model2.fit(features,labels)
 		predictions_model2 = model2.predict(testing_data)
@@ -316,6 +297,7 @@ def Linear_Svc():
 		ax1.axis('equal')  
 		plt.tight_layout()
 		plt.show()
+		
 		
 def Knn():
 	if filename:
