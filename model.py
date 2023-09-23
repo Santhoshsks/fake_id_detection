@@ -26,7 +26,7 @@ def browse() :
 	filename = askopenfilename()
 	print (filename)
 
-def Create_Input_Window():
+def Create_Input_Window():  
 	input_window = tk.Toplevel(root)
 	input_window.geometry("400x600")
 	input_window.resizable(0, 0)
@@ -59,7 +59,6 @@ def Create_Input_Window():
 				}))
 				inputframe = inputframe[['profilepic','nums/length username','fullname words','nums/length fullname','name=username','description length','external URL','private','#posts','#followers','#follows','fake']]
 				print(inputframe.loc[0])
-				Naive_Bayes_Manual_Input(inputframe)
 			
 			df=pd.read_csv(filename_train)
 			train = df
@@ -153,7 +152,6 @@ def Create_Input_Window():
 			print('\n Predicted Class :',predictions_model3[0])
 			show_predicted_label(predictions_model3[0])		
 			
-	
 		 
 	tk.Label(input_window, text="Enter UserID").grid(row=0)
 	tk.Label(input_window, text="Enter No Of Abuse Report").grid(row=3)
@@ -230,7 +228,7 @@ def Create_Input_Window():
 					   font = "Helvetica 10 bold italic",
 					   command=Knn__Manual_Input,
 					   )  
-	KNN_button.place(relx=0.7, rely=0.8)   
+	KNN_button.place(relx=0.7, rely=0.8)
 	
 
 def Naive_Bayes():
@@ -316,6 +314,7 @@ def Linear_Svc():
 		ax1.axis('equal')  
 		plt.tight_layout()
 		plt.show()
+		
 		
 def Knn():
 	if filename:
